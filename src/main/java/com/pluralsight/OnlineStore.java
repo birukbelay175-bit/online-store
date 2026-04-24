@@ -48,17 +48,27 @@ public class OnlineStore {
 
             switch (choice) {
                 case 1:
+                    scanner.nextLine(); // clear enter
+
+                    System.out.print("Search by name or department, or press Enter to show all: ");
+                    String search = scanner.nextLine();
+
                     System.out.println("\n--- Product List ---");
 
                     for (Product p : products) {
-                        System.out.println(
-                                "SKU: " + p.getSku() +
-                                        " | Name: " + p.getProductName() +
-                                        " | Price: $" + p.getPrice() +
-                                        " | Dept: " + p.getDepartment()
+                        if (search.isEmpty() ||
+                                p.getProductName().toLowerCase().contains(search.toLowerCase()) ||
+                                p.getDepartment().toLowerCase().contains(search.toLowerCase())) {
 
-                        );
+                            System.out.println(
+                                    "SKU: " + p.getSku() +
+                                            " | Name: " + p.getProductName() +
+                                            " | Price: $" + p.getPrice() +
+                                            " | Dept: " + p.getDepartment()
+                            );
+                        }
                     }
+
                     System.out.print("Enter SKU to add to cart (or 0 to go back): ");
                     String input = scanner.next();
 
@@ -72,7 +82,6 @@ public class OnlineStore {
                         }
                     }
 
-                    System.out.println("----------------------\n");
                     break;
                 case 2:
                     System.out.println("\n--- Your Cart ---");
